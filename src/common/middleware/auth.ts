@@ -27,8 +27,6 @@ export const auth = async (
     switch (flag) {
       case "Bearer":
         const decoded: any = jwt.decode(token);
-        console.log(decoded);
-
         if (!decoded) {
           throw new unauthorized("Invalid token");
         }

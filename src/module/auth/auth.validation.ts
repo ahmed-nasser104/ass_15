@@ -8,7 +8,7 @@ export const signUpSchema = {
         .min(5, { error: "Password must be more than 5" })
         .max(20, { error: "Password must be less than 20 " }),
       username: z.string(),
-      confrimPassword: z.string(),
+      confrimPassword: z.string().optional(),
     })
     .superRefine((data, ctx) => {
       if (data.password! == data.confrimPassword) {

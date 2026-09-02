@@ -32,6 +32,10 @@ const userSchema = new mongoose_1.default.Schema({
     profilePic: {
         type: String,
     },
+    is_private: {
+        type: Boolean,
+        default: false,
+    },
 }, {
     timestamps: true,
 });

@@ -28,6 +28,10 @@ const userSchema = new mongoose.Schema<User>(
     profilePic: {
       type: String,
     },
+    is_private: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

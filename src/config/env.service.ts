@@ -19,4 +19,5 @@ export const env: Env = {
   api_secret: process.env.API_SECRET as string,
   access_key: process.env.Access_key_ID as string,
   secret_key: process.env.Secret_access_key as string,
+  redis_url: process.env.REDIS_URL as string,
 };

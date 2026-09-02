@@ -13,4 +13,5 @@ export interface Env {
   api_secret: string;
   access_key: string;
   secret_key: string;
+  redis_url: string;
 }

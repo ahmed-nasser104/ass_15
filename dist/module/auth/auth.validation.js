@@ -14,7 +14,7 @@ exports.signUpSchema = {
             .min(5, { error: "Password must be more than 5" })
             .max(20, { error: "Password must be less than 20 " }),
         username: zod_1.default.string(),
-        confrimPassword: zod_1.default.string(),
+        confrimPassword: zod_1.default.string().optional(),
     })
         .superRefine((data, ctx) => {
         if (data.password == data.confrimPassword) {

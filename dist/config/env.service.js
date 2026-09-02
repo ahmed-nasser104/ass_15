@@ -24,4 +24,5 @@ exports.env = {
     api_secret: process.env.API_SECRET,
     access_key: process.env.Access_key_ID,
     secret_key: process.env.Secret_access_key,
+    redis_url: process.env.REDIS_URL,
 };

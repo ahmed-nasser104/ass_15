@@ -13,5 +13,6 @@ export interface User {
   role: userRole;
   gender: userGender;
   provider: userProvider;
+  is_private: boolean;
   phone?: string;
 }

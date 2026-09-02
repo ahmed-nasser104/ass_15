@@ -24,7 +24,6 @@ const auth = async (req, res, next) => {
         switch (flag) {
             case "Bearer":
                 const decoded = jsonwebtoken_1.default.decode(token);
-                console.log(decoded);
                 if (!decoded) {
                     throw new error_response_1.unauthorized("Invalid token");
                 }

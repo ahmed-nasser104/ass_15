@@ -11,11 +11,15 @@ const helmet_1 = __importDefault(require("helmet"));
 const catcher_1 = require("./common/middleware/catcher");
 const auth_controller_1 = __importDefault(require("./module/auth/auth.controller"));
 const connection_1 = require("./database/connection");
+const redis_1 = __importDefault(require("./database/redis/redis"));
+const freinds_controller_1 = __importDefault(require("./module/friends/freinds.controller"));
 const boostrap = async () => {
     const app = (0, express_1.default)();
     await (0, connection_1.databaseConnection)();
+    await redis_1.default.connection();
     app.use(express_1.default.json());
     app.use("/auth", auth_controller_1.default);
+    app.use("/friends", freinds_controller_1.default);
     app.use(rateLimiter_1.ratelimiter);
     app.use((0, helmet_1.default)());
     app.use(catcher_1.catchErrors);
