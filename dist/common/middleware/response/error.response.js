@@ -1,6 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.serviceUnavailable = exports.badGateway = exports.notImplemented = exports.internalServerError = exports.tooManyRequests = exports.unprocessableEntity = exports.conflict = exports.notFound = exports.forbidden = exports.unauthorized = exports.badRequest = void 0;
+exports.serviceUnavailable = exports.badGateway = exports.notImplemented = exports.internalServerError = exports.tooManyRequests = exports.unprocessableEntity = exports.conflict = exports.notFound = exports.forbidden = exports.unauthorized = exports.badRequest = exports.GraphqlErrorHandler = void 0;
+const graphql_1 = require("graphql");
+const GraphqlErrorHandler = (err) => {
+    throw new graphql_1.GraphQLError(err.message, {
+        extensions: {
+            status: err.status,
+            cause: err.cause || {},
+        },
+    });
+};
+exports.GraphqlErrorHandler = GraphqlErrorHandler;
 class ErrorApllication extends Error {
     status;
     constructor(message, status, cause) {

@@ -6,10 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.postsModel = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const postsSchema = new mongoose_1.default.Schema({
-    likes: {
-        type: Number,
-        default: 0,
-    },
+    likes: [
+        {
+            type: mongoose_1.default.Schema.Types.ObjectId,
+            ref: "user",
+        },
+    ],
     userId: {
         type: mongoose_1.default.Schema.Types.ObjectId,
         ref: "user",
@@ -20,8 +22,8 @@ const postsSchema = new mongoose_1.default.Schema({
         required: true,
     },
     comments: {
-        type: Number,
-        default: 0,
+        type: [String],
+        default: [],
     },
     photo: {
         type: String,

@@ -1,9 +1,9 @@
 import { Types } from "mongoose";
 
 export interface Posts {
-  likes: number;
+  likes: Types.ObjectId[];
   userId: Types.ObjectId;
   content: string;
-  comments: number;
+  comments: string[];
   photo?: string;
 }

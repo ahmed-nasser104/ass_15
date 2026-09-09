@@ -13,8 +13,11 @@ const auth_controller_1 = __importDefault(require("./module/auth/auth.controller
 const connection_1 = require("./database/connection");
 const redis_1 = __importDefault(require("./database/redis/redis"));
 const freinds_controller_1 = __importDefault(require("./module/friends/freinds.controller"));
+const express_2 = require("graphql-http/lib/use/express");
+const schema_gql_1 = require("./module/gql/schema.gql");
 const boostrap = async () => {
     const app = (0, express_1.default)();
+    app.all("/graphQL", (0, express_2.createHandler)({ schema: schema_gql_1.schema, context: (req) => ({ req }) })); // الفرق بين ال app.all , app.use ان ال all لا تقبل routing
     await (0, connection_1.databaseConnection)();
     await redis_1.default.connection();
     app.use(express_1.default.json());

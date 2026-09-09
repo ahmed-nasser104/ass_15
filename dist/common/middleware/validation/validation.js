@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validation = void 0;
+exports.GrapgQLValidation = exports.validation = void 0;
 const error_response_1 = require("../response/error.response");
 const validation = (schema) => {
     return (req, res, next) => {
@@ -24,3 +24,15 @@ const validation = (schema) => {
     };
 };
 exports.validation = validation;
+const GrapgQLValidation = (schema, args) => {
+    const value = schema.safeParse(args);
+    let validationErros = [];
+    if (!value.success) {
+        validationErros.push({
+            error: value.error.issues,
+        });
+        throw (0, error_response_1.GraphqlErrorHandler)(new error_response_1.badRequest("Validation error", { error: validationErros }));
+    }
+    return true;
+};
+exports.GrapgQLValidation = GrapgQLValidation;

@@ -1,5 +1,14 @@
+import { GraphQLError } from "graphql";
 import { Errors } from "../../interfaces/error.interface";
 
+export const GraphqlErrorHandler = (err: ErrorApllication) => {
+  throw new GraphQLError(err.message, {
+    extensions: {
+      status: err.status,
+      cause: err.cause || {},
+    },
+  });
+};
 class ErrorApllication extends Error implements Errors {
   constructor(
     message: string,

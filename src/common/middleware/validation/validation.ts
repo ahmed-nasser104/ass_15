@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { ZodType } from "zod";
-import { badRequest } from "../response/error.response";
+import { badRequest, GraphqlErrorHandler } from "../response/error.response";
+import { Posts } from "../../interfaces/posts.interface";
 
 type validationKey = keyof Request;
 type validationSchema = Partial<Record<validationKey, ZodType>>;
@@ -24,4 +25,18 @@ export const validation = (schema: validationSchema) => {
       next();
     }
   };
+};
+
+export const GrapgQLValidation = (schema: ZodType, args: unknown) => {
+  const value = schema.safeParse(args);
+  let validationErros = [];
+  if (!value.success) {
+    validationErros.push({
+      error: value.error.issues,
+    });
+    throw GraphqlErrorHandler(
+      new badRequest("Validation error", { error: validationErros }),
+    );
+  }
+  return true;
 };

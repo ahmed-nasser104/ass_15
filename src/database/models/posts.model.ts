@@ -2,10 +2,12 @@ import mongoose from "mongoose";
 import { Posts } from "../../common/interfaces/posts.interface";
 const postsSchema = new mongoose.Schema<Posts>(
   {
-    likes: {
-      type: Number,
-      default: 0,
-    },
+    likes: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
+      },
+    ],
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
@@ -16,8 +18,8 @@ const postsSchema = new mongoose.Schema<Posts>(
       required: true,
     },
     comments: {
-      type: Number,
-      default: 0,
+      type: [String],
+      default: [],
     },
     photo: {
       type: String,

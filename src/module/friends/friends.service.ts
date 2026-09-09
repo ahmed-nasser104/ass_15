@@ -8,6 +8,7 @@ import {
 } from "../../common/middleware/response/error.response";
 import { userModel } from "../../database/models/user.mode";
 import { User } from "../../common/interfaces/user.interface";
+import { Posts } from "../../common/interfaces/posts.interface";
 
 class FriendsService {
   private Friendclient: DatabaseRepostaory<Friends>;
