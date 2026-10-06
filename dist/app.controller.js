@@ -15,6 +15,7 @@ const redis_1 = __importDefault(require("./database/redis/redis"));
 const freinds_controller_1 = __importDefault(require("./module/friends/freinds.controller"));
 const express_2 = require("graphql-http/lib/use/express");
 const schema_gql_1 = require("./module/gql/schema.gql");
+const realTime_gatewat_1 = require("./module/realtime/realTime.gatewat");
 const boostrap = async () => {
     const app = (0, express_1.default)();
     app.all("/graphQL", (0, express_2.createHandler)({ schema: schema_gql_1.schema, context: (req) => ({ req }) })); // الفرق بين ال app.all , app.use ان ال all لا تقبل routing
@@ -26,6 +27,7 @@ const boostrap = async () => {
     app.use(rateLimiter_1.ratelimiter);
     app.use((0, helmet_1.default)());
     app.use(catcher_1.catchErrors);
-    app.listen(env_service_1.env.port, () => console.log(`server is runing on port ${env_service_1.env.port}`));
+    const httpServer = app.listen(env_service_1.env.port, () => console.log(`server is runing on port ${env_service_1.env.port}`));
+    realTime_gatewat_1.gatewat.initial(httpServer);
 };
 exports.boostrap = boostrap;

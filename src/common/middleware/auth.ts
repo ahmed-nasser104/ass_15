@@ -4,7 +4,7 @@ import { unauthorized } from "./response/error.response";
 import { DatabaseRepostaory } from "../reposatory/database.reposatory";
 import { userModel } from "../../database/models/user.mode";
 import { User } from "../interfaces/user.interface";
-import { env } from "../../config/env.service";
+import { tokenService } from "../utils/service/token.service";
 export type addingUser = Request & {
   user?: any;
 };
@@ -22,24 +22,10 @@ export const auth = async (
   if (!flag || !token) {
     throw new unauthorized("Invalid authorization format");
   }
-  let signature = "";
   try {
     switch (flag) {
       case "Bearer":
-        const decoded: any = jwt.decode(token);
-        if (!decoded) {
-          throw new unauthorized("Invalid token");
-        }
-        switch (decoded.aud) {
-          case "admin":
-            signature = env.admin_signature;
-            break;
-          case "user":
-            signature = env.user_signature;
-            break;
-          default:
-            throw new unauthorized("Invalid audience");
-        }
+        const { signature } = tokenService.decoder(token);
         const decodedUser = jwt.verify(token, signature);
         req.user = decodedUser;
         next();

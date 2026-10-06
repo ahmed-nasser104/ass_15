@@ -8,9 +8,10 @@ import authRouter from "./module/auth/auth.controller";
 import { databaseConnection } from "./database/connection";
 import RedisConnection from "./database/redis/redis";
 import friendsRouter from "./module/friends/freinds.controller";
-import { GraphQLObjectType, GraphQLSchema, GraphQLString } from "graphql";
 import { createHandler } from "graphql-http/lib/use/express";
 import { schema } from "./module/gql/schema.gql";
+import { Server } from "socket.io";
+import { gatewat } from "./module/realtime/realTime.gatewat";
 export const boostrap = async () => {
   const app: Express = express();
 
@@ -26,7 +27,8 @@ export const boostrap = async () => {
   app.use(ratelimiter);
   app.use(helmet());
   app.use(catchErrors);
-  app.listen(env.port, () =>
+  const httpServer = app.listen(env.port, () =>
     console.log(`server is runing on port ${env.port}`),
   );
+  gatewat.initial(httpServer);
 };
